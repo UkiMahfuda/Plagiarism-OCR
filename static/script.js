@@ -55,14 +55,28 @@ document.getElementById("upload-form").addEventListener("submit", function (even
         plagiarismResultDiv.innerText = data.error;
       } else {
         var similarityResults = data.similarity_results;
+
+        var tableHTML = "";
+
         for (var i = 0; i < similarityResults.length; i++) {
           if (!similarityResults[i].hasOwnProperty("filename")) {
             var file1 = similarityResults[i].file1;
             var file2 = similarityResults[i].file2;
             var similarity = (similarityResults[i].similarity * 100).toFixed(2);
-            plagiarismResultDiv.innerHTML += "<p>Kesamaan file " + file1 + " dan file " + file2 + ": " + similarity + "%</p>";
+
+            tableHTML += `<tr class="text-sm">
+                <td class="px-2 border-2">Kesamaan file</td>
+                <td class="px-2 border-2">${file1}</td>
+                <td class="px-2 border-2">dan file</td>
+                <td class="px-2 border-2">${file2}</td>
+                <td class="px-2 border-2">: ${similarity}%</td>
+            </tr>`;
           }
         }
+
+        plagiarismResultDiv.innerHTML = `<table class="w-full border-2" cellpadding="10" cellspacing="10">
+        ${tableHTML}
+    </table>`;
       }
     })
     .catch((error) => console.error("Error:", error));
