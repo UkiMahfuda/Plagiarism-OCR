@@ -3,16 +3,28 @@ from flask import Flask, render_template, request, jsonify
 import cv2
 import numpy as np
 import pytesseract
+import fitz  
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 
-def ocr_text(image_path):
-    image = cv2.imread(image_path)
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    text = pytesseract.image_to_string(gray_image)
-    return text
+# def ocr_text(image_path):
+#     image = cv2.imread(image_path)
+#     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+#     text = pytesseract.image_to_string(gray_image)
+#     return text
+
+def ocr_pdf(filepath):
+    try:
+        text = ""
+        with fitz.open(filepath) as doc:
+            for page in doc:
+                text += page.get_text()
+        return text
+    except Exception as e:
+        return text
+
 
 def preprocess_text(text):
     text = text.lower()
@@ -48,7 +60,7 @@ def upload():
             file_path = 'temp/' + file.filename
             file.save(file_path)
 
-            text = ocr_text(file_path)
+            text = ocr_pdf(file_path)
             preprocessed_text = preprocess_text(text)
 
             similarity_results.append({'filename': file.filename, 'text': preprocessed_text})

@@ -8,6 +8,22 @@ window.addEventListener("DOMContentLoaded", () => {
     input.value = null;
   });
 
+  // input.addEventListener("change", () => {
+  //   const files = input.files;
+  //   wrapper.innerHTML = "";
+  //   for (let i = 0; i < files.length; i++) {
+  //     const file = files[i];
+  //     const fileType = file.type;
+
+  //     if (fileType.startsWith("image/")) {
+  //       const imageUrl = URL.createObjectURL(file);
+  //       fileShow(file.name, imageUrl);
+  //     } else {
+  //       alert("File Harus JPG/PNG/JPEG");
+  //     }
+  //   }
+  // });
+
   input.addEventListener("change", () => {
     const files = input.files;
     wrapper.innerHTML = "";
@@ -15,11 +31,11 @@ window.addEventListener("DOMContentLoaded", () => {
       const file = files[i];
       const fileType = file.type;
 
-      if (fileType.startsWith("image/")) {
-        const imageUrl = URL.createObjectURL(file);
-        fileShow(file.name, imageUrl);
+      if (fileType === "application/pdf") {
+        const fileUrl = URL.createObjectURL(file);
+        fileShow(file.name, fileUrl);
       } else {
-        alert("File Harus JPG/PNG/JPEG");
+        alert("File harus berformat PDF");
       }
     }
   });
