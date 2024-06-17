@@ -21,6 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
   //     } else {
   //       alert("File Harus JPG/PNG/JPEG");
   //     }
+
   //   }
   // });
 
