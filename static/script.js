@@ -14,14 +14,12 @@ window.addEventListener("DOMContentLoaded", () => {
   //   for (let i = 0; i < files.length; i++) {
   //     const file = files[i];
   //     const fileType = file.type;
-
   //     if (fileType.startsWith("image/")) {
   //       const imageUrl = URL.createObjectURL(file);
   //       fileShow(file.name, imageUrl);
   //     } else {
   //       alert("File Harus JPG/PNG/JPEG");
   //     }
-
   //   }
   // });
 
